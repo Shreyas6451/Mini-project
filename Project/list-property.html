@@ -35,13 +35,12 @@
             width: 100%;
             max-width: 800px;
         }
-        
         h2 {
             font-size: 18px;
             color: #333;
             margin: 0;
         }
-        .continue-button {
+        .submit-button {
             background-color: #ff9100; 
             color: white;
             border: none;
@@ -55,24 +54,99 @@
             margin: 20px auto; 
             width: fit-content;
         }
-       
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Add Your Property</h1>
     <hr/>
-    <ol>
-        <li><h2>Enter the house owner name</h2></li>
-        <hr/>
-        <li><h2>Enter your mobile number</h2></li>
-        <hr/>
-        <li><h2>No. of rooms available</h2></li>
-        <hr/>
-        <li><h2>Enter rent for rooms</h2></li>
-        <hr/>
-        <li><h2>Enter located city</h2></li>
-        <hr/>
-    </ol>
-    <a href="./continue.html" class="continue-button">Continue</a>
+    <form id="propertyForm">
+        <ol>
+            <li>
+                <h2>Enter the house owner name:</h2>
+                <input type="text" id="ownerName" required>
+                <div class="error" id="ownerNameError"></div>
+            </li>
+            <hr/>
+            <li>
+                <h2>Enter your mobile number:</h2>
+                <input type="tel" id="mobileNumber" required pattern="[0-9]{10}">
+                <div class="error" id="mobileNumberError"></div>
+            </li>
+            <hr/>
+            <li>
+                <h2>No. of rooms available:</h2>
+                <input type="number" id="numRooms" required min="1">
+                <div class="error" id="numRoomsError"></div>
+            </li>
+            <hr/>
+            <li>
+                <h2>Enter rent for rooms:</h2>
+                <input type="number" id="rent" required min="0">
+                <div class="error" id="rentError"></div>
+            </li>
+            <hr/>
+            <li>
+                <h2>Enter location of room:</h2>
+                <input type="text" id="city" required>
+                <div class="error" id="cityError"></div>
+            </li>
+            <hr/>
+        </ol>
+        <button type="button" class="submit-button" onclick="validateForm()">Submit</button>
+    </form>
+    
+    <script>
+        function validateForm() {
+            
+            document.querySelectorAll('.error').forEach(e => e.textContent = '');
+
+            let isValid = true;
+
+            
+            const ownerName = document.getElementById('ownerName').value;
+            if (!ownerName.trim()) {
+                document.getElementById('ownerNameError').textContent = 'Owner name is required.';
+                isValid = false;
+            }
+
+            
+            const mobileNumber = document.getElementById('mobileNumber').value;
+            const mobilePattern = /^[0-9]{10}$/;
+            if (!mobilePattern.test(mobileNumber)) {
+                document.getElementById('mobileNumberError').textContent = 'Enter a valid 10-digit mobile number.';
+                isValid = false;
+            }
+
+            
+            const numRooms = document.getElementById('numRooms').value;
+            if (numRooms < 1) {
+                document.getElementById('numRoomsError').textContent = 'Number of rooms must be at least 1.';
+                isValid = false;
+            }
+
+            
+            const rent = document.getElementById('rent').value;
+            if (rent < 0) {
+                document.getElementById('rentError').textContent = 'Rent cannot be negative.';
+                isValid = false;
+            }
+
+           
+            const city = document.getElementById('city').value;
+            if (!city.trim()) {
+                document.getElementById('cityError').textContent = 'City is required.';
+                isValid = false;
+            }
+
+            
+            if (isValid) {
+                document.getElementById('propertyForm').submit();
+            }
+        }
+    </script>
 </body>
 </html>
