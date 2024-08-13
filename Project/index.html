@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find rental rooms near to  you</title>
+    <title>Find Rental Rooms Near You</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -27,30 +27,30 @@
             background: #ddd;
             width: 100%;
             max-width: 1200px;
-            margin: 20px 0;
+            margin: 10px 0;
         }
         .image-container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 40px;
             flex-wrap: wrap; 
-            padding: 20px;
+            padding: 30px;
             max-width: 1200px;
         }
         .image-container a {
-            display: block;
             width: 300px; 
+            position: relative;
         }
         .image-container img {
             width: 100%;
-            height: auto;
+            height: 200px;
             border: 2px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            transition: transform 0.3s ease, opacity 0.3s ease;
         }
         .image-container img:hover {
-            transform: scale(1.05);
+            transform: scale(1.02);
+            opacity: 0.8;
         }
         .list-property-button {
             position: absolute;
@@ -58,30 +58,74 @@
             right: 2px;
             background-color: #ff9100; 
             color: white;
-            border: none;
             padding: 10px 20px;
             border-radius: 5px;
             font-size: 16px;
-            cursor: pointer;
             text-decoration: none;
             text-align: center;
         }
         .list-property-button:hover {
             background-color: #b34500; 
         }
+        .list-mess-button {
+            position: absolute;
+            top: 150px;
+            right: 2px;
+            background-color: #ff9100; 
+            color: white;
+            padding: 10px 31px;
+            border-radius: 5px;
+            font-size: 16px;
+            text-decoration: none;
+            text-align: center;
+        }
+        .list-mess-button:hover {
+            background-color: #b34500; 
+        }
+        .info-box {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 10;
+            width: 300px;
+        }
     </style>
 </head>
 <body>
     <a href="./list-property.html" class="list-property-button">List Your Property</a>
-    <h1>Find rooms near you</h1>
+    <a href="./list-mess.html" class="list-mess-button">List Your Mess</a>
+    <h1>Find Rooms Near You</h1>
     <hr/>
+    
     <div class="image-container">
-        <a href="./room.html">
-            <img src="https://smartcity.eletsonline.com/wp-content/uploads/2016/06/house-to-rent.jpg">
+        <a href="./room.html" onmouseover="showInfo(event, 'Find your ideal room here!')" onmouseout="hideInfo()">
+            <img src="https://smartcity.eletsonline.com/wp-content/uploads/2016/06/house-to-rent.jpg" alt="Room for Rent">
         </a>
-        <a href="./mess.html">
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTvDrZG132LYunTt8Zc01nVB0rEzuOyAilPw&s">
+        <a href="./mess.html" onmouseover="showInfo(event, 'Explore mess options in your area!')" onmouseout="hideInfo()">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTvDrZG132LYunTt8Zc01nVB0rEzuOyAilPw&s" alt="Mess Options">
         </a>
     </div>
+    
+    
+    <div id="infoBox" class="info-box"></div>
+
+    <script>
+        function showInfo(event, message) {
+            const infoBox = document.getElementById('infoBox');
+            infoBox.textContent = message;
+            infoBox.style.display = 'block';
+            infoBox.style.left = event.pageX + 'px';
+            infoBox.style.top = event.pageY + 'px';
+        }
+
+        function hideInfo() {
+            const infoBox = document.getElementById('infoBox');
+            infoBox.style.display = 'none';
+        }
+    </script>
 </body>
 </html>
